@@ -10,7 +10,7 @@ function App() {
     return (
         <>
             <GlobalStyles />
-            <Router>
+            <Router basename="/exclusive-react">
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/product" element={<Product />} />
