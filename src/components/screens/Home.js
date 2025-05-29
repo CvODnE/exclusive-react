@@ -96,6 +96,17 @@ export default function Home() {
         navigate("/item", { state: { product } });
     };
 
+    const [showLangDropdown, setShowLangDropdown] = useState(false);
+
+    const handleLangClick = () => {
+        setShowLangDropdown(!showLangDropdown);
+    };
+
+    const handleLangSelect = (lang) => {
+        setShowLangDropdown(false);
+        // Here you can add logic to change the language
+    };
+
     return (
         <>
             <DivTop className="top" style={styled.divTop}>
@@ -103,9 +114,17 @@ export default function Home() {
                     <DivTextP>Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!</DivTextP>
                     <DivTextButton>ShopNow</DivTextButton>
                 </DivText>
-                <DivLang className="lang">
+                <DivLang className="lang" onClick={handleLangClick}>
                     <DivLangH5>English</DivLangH5>
                     <DivLangImg src={require("../../assets/images/Vector.png")} />
+                    {showLangDropdown && (
+                        <DivLangDropdown>
+                            <DivLangDropdownItem onClick={() => handleLangSelect('English')}>English</DivLangDropdownItem>
+                            <DivLangDropdownItem onClick={() => handleLangSelect('Spanish')}>Spanish</DivLangDropdownItem>
+                            <DivLangDropdownItem onClick={() => handleLangSelect('French')}>French</DivLangDropdownItem>
+                            <DivLangDropdownItem onClick={() => handleLangSelect('German')}>German</DivLangDropdownItem>
+                        </DivLangDropdown>
+                    )}
                 </DivLang>
             </DivTop>
             <Header>
@@ -542,10 +561,10 @@ export default function Home() {
                             <FooterFlexBoxH6>Save $3 with App New User Only</FooterFlexBoxH6>
                             <img src={require("../../assets/images/app_dowlload.png")} alt=""/>
                             <FooterFlexBoxIcons className="icons">
-                                <img src={Facebook} alt="facebook"/>
-                                <img src={Twitter} alt="twitter"/>
-                                <img src={Instagram} alt="instagram"/>
-                                <img src={LinkedIn} alt="linkedin"/>
+                                <a href="https://www.facebook.com/"><img src={Facebook} alt="facebook"/></a>
+                                <a href="https://x.com/"><img src={Twitter} alt="twitter"/></a>
+                                <a href="https://www.instagram.com/"><img src={Instagram} alt="instagram"/></a>
+                                <a href="https://in.linkedin.com/"><img src={LinkedIn} alt="linkedin"/></a>
                             </FooterFlexBoxIcons>
                         </div>
                     </FooterFlex>
@@ -562,15 +581,29 @@ const DivTop = styled.div `
     justify-content: space-between;
     align-items: center;
     width: 87%;
-    padding-left: 6.5%;
-    padding-right: 6.5%;
+    margin: 0 auto;
+    padding: 0 6.5%;
     height: 50px;
+
+    @media (max-width: 767px) {
+        flex-direction: column;
+        height: auto;
+        padding: 10px 6.5%;
+    }
+
+    @media (max-width: 575px) {
+        padding: 10px 3%;
+    }
 `
 const DivText = styled.div `
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
+
+    @media (max-width: 767px) {
+        margin-bottom: 10px;
+    }
 `
 const DivTextP = styled.p `
     font-family: "poppins";
@@ -594,6 +627,8 @@ const DivLang = styled.div `
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    position: relative;
+    margin-left: auto;
 `
 const DivLangH5 = styled.h5 `
     font-family: "poppins";
@@ -614,6 +649,22 @@ const Header = styled.header `
     padding-top: 13px;
     padding-bottom: 13px;
     border-bottom: 0.5px solid #99999999;
+
+    @media (max-width: 1199px) {
+        padding-left: 45px;
+        padding-right: 45px;
+    }
+
+    @media (max-width: 991px) {
+        flex-direction: column;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    @media (max-width: 767px) {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 `
 const HeaderImg = styled.img `
     width: 90%;
@@ -624,6 +675,16 @@ const HeaderNavUl = styled.ul `
     align-items: center;
     justify-content: space-between;
     gap: 48px;
+
+    @media (max-width: 991px) {
+        gap: 20px;
+        margin-bottom: 15px;
+    }
+
+    @media (max-width: 575px) {
+        flex-direction: column;
+        gap: 10px;
+    }
 `
 const HeaderNavUlLiA = styled.a `
     font-family: "poppins";
@@ -638,6 +699,15 @@ const HeaderUl = styled.ul `
     align-items: center;
     justify-content: space-between;
     gap: 24px;
+
+    @media (max-width: 991px) {
+        gap: 15px;
+    }
+
+    @media (max-width: 575px) {
+        flex-direction: column;
+        gap: 10px;
+    }
 `
 const HeaderUlForm = styled.div `
     width: 243px;
@@ -651,6 +721,12 @@ const HeaderUlForm = styled.div `
     padding: 7px;
     padding-left: 27px;
     padding-right: 17px;
+
+    @media (max-width: 575px) {
+        width: 100%;
+        gap: 15px;
+        padding: 7px 15px;
+    }
 `
 const HeaderUlFormInput = styled.input `
     outline: none;
@@ -661,6 +737,26 @@ const HeaderUlFormInput = styled.input `
 const Wrapper = styled.section `
     width: 87%;
     margin: 0 auto;
+
+    @media (max-width: 1399px) {
+        width: 90%;
+    }
+
+    @media (max-width: 1199px) {
+        width: 95%;
+    }
+
+    @media (max-width: 991px) {
+        width: 97%;
+    }
+
+    @media (max-width: 767px) {
+        width: 98%;
+    }
+
+    @media (max-width: 575px) {
+        width: 99%;
+    }
 `
 const Search = styled.section `
     margin-top: 50px;
@@ -670,10 +766,28 @@ const SearchGrid = styled.div `
     display: grid;
     grid-template-columns: auto auto auto auto;
     gap: 30px;
+
+    @media (max-width: 1199px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 991px) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    @media (max-width: 575px) {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
 `
 const ProductGridBoxa = styled.div `
     gap: 16px;
     cursor: pointer;
+    /* Ensure boxes take full width on small screens */
+    @media (max-width: 575px) {
+        width: 100%;
+    }
 `
 const ProductGridBoxaCart = styled.div `
     background: #f5f5f5;
@@ -689,11 +803,21 @@ const ProductGridBoxaCart = styled.div `
     align-items: center;
     justify-content: center;
     margin-left: 0px;
+
+    @media (max-width: 575px) {
+        width: 100%;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
 `
 const ProductGridBoxaCartImg = styled.img `
     display: block;
     width: 50%;
     margin: 0 auto;
+
+    @media (max-width: 575px) {
+        width: 60%;
+    }
 `
 const ProductGridBoxaCartIcon = styled.span `
     position: absolute;
@@ -705,6 +829,13 @@ const ProductGridBoxaCartIcon = styled.span `
     background: #fff;
     border-radius: 50%;
     padding: 10px;
+
+    @media (max-width: 575px) {
+        left: auto;
+        right: 10px;
+        bottom: 10px;
+        padding: 5px;
+    }
 `
 const ProductGridBoxaCartIcon1 = styled.span `
     position: absolute;
@@ -716,6 +847,13 @@ const ProductGridBoxaCartIcon1 = styled.span `
     background: #fff;
     border-radius: 50%;
     padding: 10px;
+
+    @media (max-width: 575px) {
+        left: auto;
+        right: 10px;
+        bottom: 50px;
+        padding: 5px;
+    }
 `
 const ProductGridBoxaCartCart = styled.button `
     width: 100%;
@@ -735,6 +873,14 @@ const ProductGridBoxaCartCart = styled.button `
     &:hover {
         transition: all .5s;
         opacity: 100%;
+    }
+
+    @media (max-width: 575px) {
+        top: auto;
+        bottom: 0;
+        height: 35px;
+        font-size: 14px;
+        opacity: 100%; /* Always show button on small screens */
     }
 `
 const ProductGridBoxaH5 = styled.h5 `
@@ -829,6 +975,11 @@ const SpotlightBlack = styled.div `
     border-radius: 10px;
     margin: 0 auto;
     margin-top: 43px;
+
+    @media (max-width: 991px) {
+        height: auto;
+        padding: 20px;
+    }
 `
 const SpotlightBlackWrap = styled.div `
     width: 90%;
@@ -836,12 +987,22 @@ const SpotlightBlackWrap = styled.div `
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 991px) {
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+    }
 `
 const SpotlightBlackWrapContentApple = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 24px;
+
+    @media (max-width: 991px) {
+        margin-bottom: 15px;
+    }
 `
 const SpotlightBlackWrapContentAppleH5 = styled.h5 `
     font-family: "poppins";
@@ -854,6 +1015,15 @@ const SpotlightBlackWrapContentH1 = styled.h1 `
     font-weight: 600;
     color: #fafafa;
     font-family: inter;
+
+    @media (max-width: 991px) {
+        font-size: 36px;
+        margin-bottom: 15px;
+    }
+
+    @media (max-width: 575px) {
+        font-size: 28px;
+    }
 `
 const SpotlightBlackWrapContentButton = styled.div `
     display: inline-flex;
@@ -861,6 +1031,10 @@ const SpotlightBlackWrapContentButton = styled.div `
     justify-content: space-between;
     gap: 9px;
     cursor: pointer;
+
+    @media (max-width: 991px) {
+        justify-content: center;
+    }
 `
 const SpotlightBlackWrapContentButtonButton = styled.button `
     background: none;
@@ -873,11 +1047,19 @@ const SpotlightBlackWrapContentButtonButton = styled.button `
 `
 const Categories = styled.section `
     margin-top: 55px;
+
+    @media (max-width: 767px) {
+        margin-top: 30px;
+    }
 `
 const CategoriesText = styled.div `
     display: flex;
     align-items: center;
     justify-content: left;
+
+    @media (max-width: 767px) {
+        justify-content: center;
+    }
 `
 const CategoriesTextH5 = styled.h5 `
     font-family: "poppins";
@@ -885,11 +1067,25 @@ const CategoriesTextH5 = styled.h5 `
     font-size: 16px;
     color: #db4444;
     margin-left: 16px;
+
+    @media (max-width: 767px) {
+        font-size: 14px;
+        margin-left: 10px;
+    }
 `
 const CategoriesH1 = styled.h1 `
     font-family: inter;
     font-weight: 600;
     font-size: 36px;
+
+    @media (max-width: 767px) {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    @media (max-width: 575px) {
+        font-size: 24px;
+    }
 `
 const CategoriesFlex = styled.div `
     display: flex;
@@ -898,6 +1094,18 @@ const CategoriesFlex = styled.div `
     gap: 30px;
     width: 87%;
     margin: 0 auto;
+    flex-wrap: wrap;
+
+    @media (max-width: 1199px) {
+        gap: 20px;
+        width: 95%;
+    }
+
+    @media (max-width: 991px) {
+        justify-content: center;
+        gap: 15px;
+        width: 98%;
+    }
 `
 const CategoriesFlexBox = styled.div `
     border-radius: 5px;
@@ -909,14 +1117,33 @@ const CategoriesFlexBox = styled.div `
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
+
+    @media (max-width: 575px) {
+        width: 140px;
+        height: 120px;
+    }
+
+    @media (max-width: 400px) {
+        width: 100px;
+        height: 100px;
+    }
 `
 const CategoriesFlexBoxImg = styled.img `
     margin-top: 25px;
+
+    @media (max-width: 575px) {
+        width: 40px;
+        margin-top: 15px;
+    }
 `
 const CategoriesFlexBoxH4 = styled.h4 `
     font-family: "poppins";
     font-size: 16px;
     font-weight: 400;
+
+    @media (max-width: 575px) {
+        font-size: 12px;
+    }
 `
 const CategoriesGrid = styled.div `
     display: grid;
@@ -928,6 +1155,24 @@ const CategoriesGrid = styled.div `
     padding-bottom: 27px;
     margin-bottom: 27px;
     margin-top: 27px;
+
+    @media (max-width: 1199px) {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        width: 95%;
+    }
+
+    @media (max-width: 991px) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        width: 98%;
+    }
+
+    @media (max-width: 575px) {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        width: 99%;
+    }
 `
 const CategoriesGridBoxa = styled.div `
     gap: 16px;
@@ -1070,6 +1315,11 @@ const CategoriesView = styled.button `
 const Feature = styled.section `
     margin-bottom: 27px;
     margin-top: 75px;
+
+    @media (max-width: 767px) {
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
 `
 const FeatureFlex = styled.div `
     display: flex;
@@ -1078,6 +1328,17 @@ const FeatureFlex = styled.div `
     gap: 87px;
     width: 87%;
     margin: 0 auto;
+
+    @media (max-width: 991px) {
+        flex-direction: column;
+        gap: 40px;
+        width: 95%;
+    }
+
+    @media (max-width: 767px) {
+        gap: 30px;
+        width: 98%;
+    }
 `
 const FeatureFlexBoxImg = styled.img `
     background: #000;
@@ -1088,6 +1349,13 @@ const FeatureFlexBoxImg = styled.img `
     width: 40px;
     margin: 0 auto;
     margin-bottom: 24px;
+
+    @media (max-width: 767px) {
+        width: 30px;
+        padding: 5px;
+        border: 10px #ccc solid;
+        margin-bottom: 15px;
+    }
 `
 const FeatureFlexBoxH3 = styled.h3 `
     text-align: center;
@@ -1095,6 +1363,11 @@ const FeatureFlexBoxH3 = styled.h3 `
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 9px;
+
+    @media (max-width: 767px) {
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
 `
 const FeatureFlexBoxH5 = styled.h5 `
     font-size: 14px;
@@ -1102,6 +1375,10 @@ const FeatureFlexBoxH5 = styled.h5 `
     font-family: "poppins";
     text-align: center;
     margin: 0px;
+
+    @media (max-width: 767px) {
+        font-size: 12px;
+    }
 `
 const CategoriesProduct = styled.div `
     display: grid;
@@ -1110,6 +1387,11 @@ const CategoriesProduct = styled.div `
     flex-wrap: wrap;
     width: 77%;
     margin: 0 auto;
+
+    @media (max-width: 991px) {
+        grid-template-columns: 1fr;
+        width: 95%;
+    }
 `
 const CategoriesProductBox = styled.div `
     padding: 19px;
@@ -1123,15 +1405,39 @@ const CategoriesProductBox = styled.div `
     &:nth-child(3) {
         margin-right: 100px;
     }
+
+    @media (max-width: 991px) {
+        width: 80%;
+        margin: 20px auto;
+        &:first-child {
+            margin-right: auto;
+        }
+        &:nth-child(3) {
+            margin-right: auto;
+        }
+    }
+
+    @media (max-width: 575px) {
+        width: 95%;
+        padding: 15px;
+    }
 `
 const CategoriesProductBoxH4 = styled.h4 `
     font-size: 16px;
     font-weight: 400;
+
+    @media (max-width: 575px) {
+        font-size: 14px;
+    }
 `
 const CategoriesProductBoxImg = styled.img `
     width: 190px;
     margin: 0 auto;
     display: block;
+
+    @media (max-width: 575px) {
+        width: 150px;
+    }
 `
 const Footer = styled.footer `
     width: 100%;
@@ -1139,6 +1445,15 @@ const Footer = styled.footer `
     background: #000;
     padding-top: 57px;
     height: 440px;
+
+    @media (max-width: 991px) {
+        padding-top: 40px;
+        height: auto;
+    }
+
+    @media (max-width: 767px) {
+        padding-top: 30px;
+    }
 `
 const FooterFlex = styled.div `
     display: flex;
@@ -1146,23 +1461,43 @@ const FooterFlex = styled.div `
     justify-content: space-between;
     gap: 50px;
     margin-bottom: 72px;
+
+    @media (max-width: 991px) {
+        flex-direction: column;
+        gap: 30px;
+        margin-bottom: 40px;
+        align-items: center;
+        text-align: center;
+    }
 `
 const FooterFlexBoxH3 = styled.h3 `
     font-size: 24px;
     font-weight: 700;
     color: #fafafa;
+
+    @media (max-width: 767px) {
+        font-size: 20px;
+    }
 `
 const FooterFlexBoxH4 = styled.h4 `
     font-size: 20px;
     font-family: "poppins";
     color: #fafafa;
     font-weight: 400;
+
+    @media (max-width: 767px) {
+        font-size: 18px;
+    }
 `
 const FooterFlexBoxH5 = styled.h3 `
     font-family: "poppins";
     font-weight: 400;
     font-size: 16px;
     color: #fafafa;
+
+    @media (max-width: 767px) {
+        font-size: 14px;
+    }
 `
 const FooterFlexBoxForm = styled.div `
     border-radius: 5px;
@@ -1171,6 +1506,15 @@ const FooterFlexBoxForm = styled.div `
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 991px) {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 575px) {
+        width: 100%;
+    }
 `
 const FooterFlexBoxFormInput = styled.input `
     background: none;
@@ -1184,9 +1528,17 @@ const FooterFlexBoxFormInput = styled.input `
 const FooterFlexBoxUl = styled.ul `
     list-style: none;
     padding: 0px;
+
+    @media (max-width: 991px) {
+        padding: 0;
+    }
 `
 const FooterFlexBoxUlLi = styled.li `
     margin-bottom: 16px;
+
+    @media (max-width: 991px) {
+        margin-bottom: 10px;
+    }
 `
 const FooterFlexBoxUlLiA = styled.a `
     text-decoration: none;
@@ -1194,6 +1546,10 @@ const FooterFlexBoxUlLiA = styled.a `
     font-family: "poppins";
     font-weight: 400;
     font-size: 16px;
+
+    @media (max-width: 767px) {
+        font-size: 14px;
+    }
 `
 const FooterFlexBoxH6 = styled.h6 `
     font-family: "poppins";
@@ -1202,6 +1558,10 @@ const FooterFlexBoxH6 = styled.h6 `
     opacity: 70%;
     font-weight: 400;
     margin-bottom: 11px;
+
+    @media (max-width: 767px) {
+        font-size: 10px;
+    }
 `
 const FooterFlexBoxIcons = styled.div `
     display: flex;
@@ -1211,6 +1571,10 @@ const FooterFlexBoxIcons = styled.div `
     gap: 24px;
     margin-top: 27px;
     cursor: pointer;
+
+    @media (max-width: 991px) {
+        justify-content: center;
+    }
 `
 const FooterCo = styled.h5 `
     border-top: 1px solid #333;
@@ -1221,4 +1585,32 @@ const FooterCo = styled.h5 `
     opacity: 40%;
     text-align: center;
     padding-top: 27px;
+
+    @media (max-width: 767px) {
+        font-size: 14px;
+        padding-top: 20px;
+    }
+`
+const DivLangDropdown = styled.div`
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1000;
+    min-width: 120px;
+    margin-top: 5px;
+`
+const DivLangDropdownItem = styled.div`
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: "poppins";
+    font-size: 14px;
+    color: #000;
+    
+    &:hover {
+        background: #f5f5f5;
+    }
 `

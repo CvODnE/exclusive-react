@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
@@ -25,6 +25,7 @@ export default function Item() {
     const navigate = useNavigate();
     const location = useLocation();
     const product = location.state?.product;
+    const [showLangDropdown, setShowLangDropdown] = useState(false);
 
     const handleClick = (product) => {
         navigate("/item", { state: { product } });
@@ -32,6 +33,16 @@ export default function Item() {
     const realtedItems = products.filter(
         (produc) => produc.category === product.category
     );
+
+    const handleLangClick = () => {
+        setShowLangDropdown(!showLangDropdown);
+    };
+
+    const handleLangSelect = (lang) => {
+        setShowLangDropdown(false);
+        // Here you can add logic to change the language
+    };
+
     return (
         <>
             <DivTop className="top" style={styled.divTop}>
@@ -39,9 +50,17 @@ export default function Item() {
                     <DivTextP>Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!</DivTextP>
                     <DivTextButton>ShopNow</DivTextButton>
                 </DivText>
-                <DivLang className="lang">
+                <DivLang className="lang" onClick={handleLangClick}>
                     <DivLangH5>English</DivLangH5>
                     <DivLangImg src={require("../../assets/images/Vector.png")} />
+                    {showLangDropdown && (
+                        <DivLangDropdown>
+                            <DivLangDropdownItem onClick={() => handleLangSelect('English')}>English</DivLangDropdownItem>
+                            <DivLangDropdownItem onClick={() => handleLangSelect('Spanish')}>Spanish</DivLangDropdownItem>
+                            <DivLangDropdownItem onClick={() => handleLangSelect('French')}>French</DivLangDropdownItem>
+                            <DivLangDropdownItem onClick={() => handleLangSelect('German')}>German</DivLangDropdownItem>
+                        </DivLangDropdown>
+                    )}
                 </DivLang>
             </DivTop>
             <Header>
@@ -242,10 +261,10 @@ export default function Item() {
                             <FooterFlexBoxH6>Save $3 with App New User Only</FooterFlexBoxH6>
                             <img src={require("../../assets/images/app_dowlload.png")} alt=""/>
                             <FooterFlexBoxIcons className="icons">
-                                <img src={Facebook} alt="facebook"/>
-                                <img src={Twitter} alt="twitter"/>
-                                <img src={Instagram} alt="instagram"/>
-                                <img src={LinkedIn} alt="linkedin"/>
+                                <a href="https://www.facebook.com/"><img src={Facebook} alt="facebook"/></a>
+                                <a href="https://x.com/"><img src={Twitter} alt="twitter"/></a>
+                                <a href="https://www.instagram.com/"><img src={Instagram} alt="instagram"/></a>
+                                <a href="https://in.linkedin.com/"><img src={LinkedIn} alt="linkedin"/></a>
                             </FooterFlexBoxIcons>
                         </div>
                     </FooterFlex>
@@ -262,8 +281,8 @@ const DivTop = styled.div `
     justify-content: space-between;
     align-items: center;
     width: 87%;
-    padding-left: 6.5%;
-    padding-right: 6.5%;
+    margin: 0 auto;
+    padding: 0 6.5%;
     height: 50px;
 `
 const DivText = styled.div `
@@ -294,6 +313,8 @@ const DivLang = styled.div `
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    position: relative;
+    margin-left: auto;
 `
 const DivLangH5 = styled.h5 `
     font-family: "poppins";
@@ -304,6 +325,29 @@ const DivLangH5 = styled.h5 `
 `
 const DivLangImg = styled.img `
     width: 15px;
+`
+const DivLangDropdown = styled.div`
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1000;
+    min-width: 120px;
+    margin-top: 5px;
+`
+const DivLangDropdownItem = styled.div`
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: "poppins";
+    font-size: 14px;
+    color: #000;
+    
+    &:hover {
+        background: #f5f5f5;
+    }
 `
 const Header = styled.header `
     display: flex;
@@ -364,6 +408,9 @@ const Wrapper = styled.section `
 `
 const Itemm = styled.section `
     height: auto;
+    @media (max-width: 767px) {
+        padding: 20px;
+    }
 `
 const ItemmHeading = styled.div`
     display: flex;
@@ -371,6 +418,12 @@ const ItemmHeading = styled.div`
     justify-content: left;
     margin-top: 50px;
     margin-bottom: 50px;
+
+    @media (max-width: 767px) {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        justify-content: center;
+    }
 `
 const ItemmHeadingHome = styled.h4 `
     opacity: 50%;
@@ -379,17 +432,29 @@ const ItemmHeadingHome = styled.h4 `
     font-weight: 400;
     display: inline;
     margin-right: 5px;
+
+    @media (max-width: 575px) {
+        font-size: 16px;
+    }
 `
 const ItemmHeadingBlack = styled.h4 `
     opacity: 100%;
     font-family: "poppins";
     display: inline;
+    @media (max-width: 575px) {
+        font-size: 16px;
+    }
 `
 const ItemmFlex = styled.div `
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 50px;
+
+    @media (max-width: 991px) {
+        flex-direction: column;
+        gap: 30px;
+    }
 `
 const ItemmFlexLeft = styled.div `
     background: #f5f5f5;
@@ -400,13 +465,31 @@ const ItemmFlexLeft = styled.div `
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media (max-width: 991px) {
+        width: 100%;
+        height: 400px;
+        padding: 20px;
+    }
+
+    @media (max-width: 575px) {
+        height: 300px;
+    }
 `
 const ItemmFlexRight = styled.div `
     width: 400px;
+
+    @media (max-width: 991px) {
+        width: 100%;
+    }
 `
 const ItemmFlexRightTitle = styled.h1 `
     font-weight: 600;
     font-size: 24px;
+
+    @media (max-width: 575px) {
+        font-size: 20px;
+    }
 `
 const ItemmFlexRightText = styled.div `
     display: flex;
@@ -414,32 +497,61 @@ const ItemmFlexRightText = styled.div `
     justify-content: space-between;
     gap: 16px;
     width: 300px;
+
+    @media (max-width: 991px) {
+        width: auto;
+        justify-content: flex-start;
+        gap: 10px;
+    }
 `
 const ItemmFlexRightTextGrey = styled.h5 `
     font-family: "poppins";
     font-weight: 400;
     font-size: 14px;
     opacity: 50%;
+
+    @media (max-width: 575px) {
+        font-size: 12px;
+    }
 `
 const ItemmFlexRightTextDif = styled.h5 `
     color: #0f6;
     font-weight: 500;
+
+    @media (max-width: 575px) {
+        font-size: 12px;
+    }
 `
 const ItemmFlexRightPrice = styled.h1 `
     font-weight: 400;
     font-size: 24px;
     margin-top: -11px;
     margin-bottom: 21px;
+
+    @media (max-width: 575px) {
+        font-size: 20px;
+        margin-top: -5px;
+        margin-bottom: 15px;
+    }
 `
 const ItemmFlexRightDots = styled.div `
     display: flex;
     align-items: center;
     justify-content: start;
+
+    @media (max-width: 991px) {
+        justify-content: center;
+    }
 `
 const ItemmFlexRightDotsH4 = styled.h4 `
     font-weight: 400;
     font-size: 20px;
     margin-right: 27px;
+
+    @media (max-width: 575px) {
+        font-size: 16px;
+        margin-right: 15px;
+    }
 `
 const ItemmFlexRightDotsColor = styled.div `
     width: 14px;
@@ -448,6 +560,12 @@ const ItemmFlexRightDotsColor = styled.div `
     border: 2px solid #fff;
     border-radius: 50%;
     outline: #000 2px solid;
+
+    @media (max-width: 575px) {
+        width: 10px;
+        height: 10px;
+        border: 1px solid #fff;
+    }
 `
 const ItemmFlexRightDotsRed = styled.div `
     width: 20px;
@@ -455,6 +573,12 @@ const ItemmFlexRightDotsRed = styled.div `
     background: #db4444;
     border-radius: 50%;
     margin-left: 9px;
+
+    @media (max-width: 575px) {
+        width: 15px;
+        height: 15px;
+        margin-left: 5px;
+    }
 `
 const ItemmFlexRightTop = styled.div `
     display: flex;
@@ -468,41 +592,97 @@ const ItemmFlexRightTop = styled.div `
     background: #fff;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
+
+    @media (max-width: 991px) {
+        justify-content: center;
+    }
+
+    @media (max-width: 575px) {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
 `
 const ItemmFlexRightTopImg = styled.img `
     margin-right: 16px;
+
+    @media (max-width: 575px) {
+        width: 20px;
+        margin-right: 10px;
+    }
 `
 const ItemmFlexRightTopContentH5 = styled.h5 `
     margin-bottom: 9px;
     font-size: 16px;
+
+    @media (max-width: 575px) {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
 `
 const ItemmFlexRightTopContentH6 = styled.h6 `
     margin-top: 0px;
     text-decoration-line: underline;
     font-size: 12px;
+
+    @media (max-width: 575px) {
+        font-size: 10px;
+    }
 `
 const Related = styled.section `
     margin-top: 50px;
     margin-bottom: 50px;
+
+    @media (max-width: 767px) {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding: 0 10px;
+    }
 `
 const RelatedTitle = styled.div `
     display: flex;
     align-items: center;
     justify-content: start;
+
+    @media (max-width: 767px) {
+        justify-content: center;
+    }
 `
 const RelatedTitleImg = styled.img `
     margin-right: 16px;
+
+    @media (max-width: 767px) {
+        margin-right: 10px;
+    }
 `
 const RelatedTitleH5 = styled.h5 `
     font-family: "poppins";
     font-weight: 600;
     font-size: 16px;
     color: #db4444;
+
+    @media (max-width: 767px) {
+        font-size: 14px;
+    }
 `
 const RelatedGrid = styled.div `
     display: grid;
     grid-template-columns: auto auto auto auto;
     gap: 30px;
+
+    @media (max-width: 1199px) {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    @media (max-width: 991px) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    @media (max-width: 575px) {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
 `
 const ProductGridBoxa = styled.div `
     gap: 16px;
@@ -662,6 +842,15 @@ const Footer = styled.footer `
     background: #000;
     padding-top: 57px;
     height: 440px;
+
+    @media (max-width: 991px) {
+        padding-top: 40px;
+        height: auto;
+    }
+
+    @media (max-width: 767px) {
+        padding-top: 30px;
+    }
 `
 const FooterFlex = styled.div `
     display: flex;
@@ -669,23 +858,43 @@ const FooterFlex = styled.div `
     justify-content: space-between;
     gap: 50px;
     margin-bottom: 72px;
+
+    @media (max-width: 991px) {
+        flex-direction: column;
+        gap: 30px;
+        margin-bottom: 40px;
+        align-items: center;
+        text-align: center;
+    }
 `
 const FooterFlexBoxH3 = styled.h3 `
     font-size: 24px;
     font-weight: 700;
     color: #fafafa;
+
+    @media (max-width: 767px) {
+        font-size: 20px;
+    }
 `
 const FooterFlexBoxH4 = styled.h4 `
     font-size: 20px;
     font-family: "poppins";
     color: #fafafa;
     font-weight: 400;
+
+    @media (max-width: 767px) {
+        font-size: 18px;
+    }
 `
 const FooterFlexBoxH5 = styled.h3 `
     font-family: "poppins";
     font-weight: 400;
     font-size: 16px;
     color: #fafafa;
+
+    @media (max-width: 767px) {
+        font-size: 14px;
+    }
 `
 const FooterFlexBoxForm = styled.div `
     border-radius: 5px;
@@ -694,6 +903,15 @@ const FooterFlexBoxForm = styled.div `
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 991px) {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 575px) {
+        width: 100%;
+    }
 `
 const FooterFlexBoxFormInput = styled.input `
     background: none;
@@ -707,9 +925,17 @@ const FooterFlexBoxFormInput = styled.input `
 const FooterFlexBoxUl = styled.ul `
     list-style: none;
     padding: 0px;
+
+    @media (max-width: 991px) {
+        padding: 0;
+    }
 `
 const FooterFlexBoxUlLi = styled.li `
     margin-bottom: 16px;
+
+    @media (max-width: 991px) {
+        margin-bottom: 10px;
+    }
 `
 const FooterFlexBoxUlLiA = styled.a `
     text-decoration: none;
@@ -717,6 +943,10 @@ const FooterFlexBoxUlLiA = styled.a `
     font-family: "poppins";
     font-weight: 400;
     font-size: 16px;
+
+    @media (max-width: 767px) {
+        font-size: 14px;
+    }
 `
 const FooterFlexBoxH6 = styled.h6 `
     font-family: "poppins";
@@ -725,6 +955,10 @@ const FooterFlexBoxH6 = styled.h6 `
     opacity: 70%;
     font-weight: 400;
     margin-bottom: 11px;
+
+    @media (max-width: 767px) {
+        font-size: 10px;
+    }
 `
 const FooterFlexBoxIcons = styled.div `
     display: flex;
@@ -734,6 +968,10 @@ const FooterFlexBoxIcons = styled.div `
     gap: 24px;
     margin-top: 27px;
     cursor: pointer;
+
+    @media (max-width: 991px) {
+        justify-content: center;
+    }
 `
 const FooterCo = styled.h5 `
     border-top: 1px solid #333;
@@ -744,4 +982,9 @@ const FooterCo = styled.h5 `
     opacity: 40%;
     text-align: center;
     padding-top: 27px;
+
+    @media (max-width: 767px) {
+        font-size: 14px;
+        padding-top: 20px;
+    }
 `

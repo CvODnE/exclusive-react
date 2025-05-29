@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import products from "../../data/products.json";
@@ -19,9 +19,21 @@ import StarHalf from "../../assets/images/star-half-filled.svg";
 
 export default function Home() {
     const navigate = useNavigate();
+    const [showLangDropdown, setShowLangDropdown] = useState(false);
+
     const handleClick = (product) => {
         navigate("/item", { state: { product } });
     };
+
+    const handleLangClick = () => {
+        setShowLangDropdown(!showLangDropdown);
+    };
+
+    const handleLangSelect = (lang) => {
+        setShowLangDropdown(false);
+        // Here you can add logic to change the language
+    };
+
     return (
         <>
             <DivTop className="top" style={styled.divTop}>
@@ -29,9 +41,17 @@ export default function Home() {
                     <DivTextP>Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!</DivTextP>
                     <DivTextButton>ShopNow</DivTextButton>
                 </DivText>
-                <DivLang className="lang">
+                <DivLang className="lang" onClick={handleLangClick}>
                     <DivLangH5>English</DivLangH5>
                     <DivLangImg src={require("../../assets/images/Vector.png")} />
+                    {showLangDropdown && (
+                        <DivLangDropdown>
+                            <DivLangDropdownItem onClick={() => handleLangSelect('English')}>English</DivLangDropdownItem>
+                            <DivLangDropdownItem onClick={() => handleLangSelect('Spanish')}>Spanish</DivLangDropdownItem>
+                            <DivLangDropdownItem onClick={() => handleLangSelect('French')}>French</DivLangDropdownItem>
+                            <DivLangDropdownItem onClick={() => handleLangSelect('German')}>German</DivLangDropdownItem>
+                        </DivLangDropdown>
+                    )}
                 </DivLang>
             </DivTop>
             <Header>
@@ -175,10 +195,10 @@ export default function Home() {
                             <FooterFlexBoxH6>Save $3 with App New User Only</FooterFlexBoxH6>
                             <img src={require("../../assets/images/app_dowlload.png")} alt=""/>
                             <FooterFlexBoxIcons className="icons">
-                                <img src={Facebook} alt="facebook"/>
-                                <img src={Twitter} alt="twitter"/>
-                                <img src={Instagram} alt="instagram"/>
-                                <img src={LinkedIn} alt="linkedin"/>
+                                <a href="https://www.facebook.com/"><img src={Facebook} alt="facebook"/></a>
+                                <a href="https://x.com/"><img src={Twitter} alt="twitter"/></a>
+                                <a href="https://www.instagram.com/"><img src={Instagram} alt="instagram"/></a>
+                                <a href="https://in.linkedin.com/"><img src={LinkedIn} alt="linkedin"/></a>
                             </FooterFlexBoxIcons>
                         </div>
                     </FooterFlex>
@@ -195,8 +215,8 @@ const DivTop = styled.div `
     justify-content: space-between;
     align-items: center;
     width: 87%;
-    padding-left: 6.5%;
-    padding-right: 6.5%;
+    margin: 0 auto;
+    padding: 0 6.5%;
     height: 50px;
 `
 const DivText = styled.div `
@@ -227,6 +247,8 @@ const DivLang = styled.div `
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    position: relative;
+    margin-left: auto;
 `
 const DivLangH5 = styled.h5 `
     font-family: "poppins";
@@ -301,10 +323,31 @@ const ProductsGrid = styled.div `
     gap: 45px;
     padding-bottom: 27px;
     margin-bottom: 27px;
+
+    @media (max-width: 1199px) {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+
+    @media (max-width: 991px) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    @media (max-width: 575px) {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
 `
 const ProductGridBoxa = styled.div `
     gap: 16px;
     cursor: pointer;
+     /* Ensure boxes take full width on small screens */
+     @media (max-width: 575px) {
+        width: 100%;
+    }
 `
 const ProductGridBoxaCart = styled.div `
     background: #f5f5f5;
@@ -320,11 +363,21 @@ const ProductGridBoxaCart = styled.div `
     align-items: center;
     justify-content: center;
     margin-left: 0px;
+
+    @media (max-width: 575px) {
+        width: 100%;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
 `
 const ProductGridBoxaCartImg = styled.img `
     display: block;
     width: 50%;
     margin: 0 auto;
+
+    @media (max-width: 575px) {
+        width: 60%;
+    }
 `
 const ProductGridBoxaCartIcon = styled.span `
     position: absolute;
@@ -336,6 +389,13 @@ const ProductGridBoxaCartIcon = styled.span `
     background: #fff;
     border-radius: 50%;
     padding: 10px;
+
+    @media (max-width: 575px) {
+        left: auto;
+        right: 10px;
+        bottom: 10px;
+        padding: 5px;
+    }
 `
 const ProductGridBoxaCartIcon1 = styled.span `
     position: absolute;
@@ -347,6 +407,13 @@ const ProductGridBoxaCartIcon1 = styled.span `
     background: #fff;
     border-radius: 50%;
     padding: 10px;
+
+    @media (max-width: 575px) {
+        left: auto;
+        right: 10px;
+        bottom: 50px;
+        padding: 5px;
+    }
 `
 const ProductGridBoxaCartCart = styled.button `
     width: 100%;
@@ -366,6 +433,14 @@ const ProductGridBoxaCartCart = styled.button `
     &:hover {
         transition: all .5s;
         opacity: 100%;
+    }
+
+    @media (max-width: 575px) {
+        top: auto;
+        bottom: 0;
+        height: 35px;
+        font-size: 14px;
+        opacity: 100%; /* Always show button on small screens */
     }
 `
 const ProductGridBoxaH5 = styled.h5 `
@@ -460,6 +535,12 @@ const ProductsHeading = styled.div `
     justify-content: left;
     margin-top: 50px;
     margin-bottom: 50px;
+
+    @media (max-width: 767px) {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        justify-content: center;
+    }
 `
 const ProductsHeadingH4 = styled.h4 `
     opacity: 50%;
@@ -468,11 +549,19 @@ const ProductsHeadingH4 = styled.h4 `
     font-weight: 400;
     display: inline;
     margin-right: 5px;
+
+    @media (max-width: 575px) {
+        font-size: 16px;
+    }
 `
 const ProductsHeadingBlack = styled.h4 `
     opacity: 100%;
     font-family: "poppins";
     display: inline;
+
+    @media (max-width: 575px) {
+        font-size: 16px;
+    }
 `
 const Footer = styled.footer `
     width: 100%;
@@ -480,6 +569,15 @@ const Footer = styled.footer `
     background: #000;
     padding-top: 57px;
     height: 440px;
+
+    @media (max-width: 991px) {
+        padding-top: 40px;
+        height: auto;
+    }
+
+    @media (max-width: 767px) {
+        padding-top: 30px;
+    }
 `
 const FooterFlex = styled.div `
     display: flex;
@@ -487,23 +585,43 @@ const FooterFlex = styled.div `
     justify-content: space-between;
     gap: 50px;
     margin-bottom: 72px;
+
+    @media (max-width: 991px) {
+        flex-direction: column;
+        gap: 30px;
+        margin-bottom: 40px;
+        align-items: center;
+        text-align: center;
+    }
 `
 const FooterFlexBoxH3 = styled.h3 `
     font-size: 24px;
     font-weight: 700;
     color: #fafafa;
+
+    @media (max-width: 767px) {
+        font-size: 20px;
+    }
 `
 const FooterFlexBoxH4 = styled.h4 `
     font-size: 20px;
     font-family: "poppins";
     color: #fafafa;
     font-weight: 400;
+
+    @media (max-width: 767px) {
+        font-size: 18px;
+    }
 `
 const FooterFlexBoxH5 = styled.h3 `
     font-family: "poppins";
     font-weight: 400;
     font-size: 16px;
     color: #fafafa;
+
+    @media (max-width: 767px) {
+        font-size: 14px;
+    }
 `
 const FooterFlexBoxForm = styled.div `
     border-radius: 5px;
@@ -512,6 +630,15 @@ const FooterFlexBoxForm = styled.div `
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 991px) {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 575px) {
+        width: 100%;
+    }
 `
 const FooterFlexBoxFormInput = styled.input `
     background: none;
@@ -525,9 +652,17 @@ const FooterFlexBoxFormInput = styled.input `
 const FooterFlexBoxUl = styled.ul `
     list-style: none;
     padding: 0px;
+
+    @media (max-width: 991px) {
+        padding: 0;
+    }
 `
 const FooterFlexBoxUlLi = styled.li `
     margin-bottom: 16px;
+
+    @media (max-width: 991px) {
+        margin-bottom: 10px;
+    }
 `
 const FooterFlexBoxUlLiA = styled.a `
     text-decoration: none;
@@ -535,6 +670,10 @@ const FooterFlexBoxUlLiA = styled.a `
     font-family: "poppins";
     font-weight: 400;
     font-size: 16px;
+
+    @media (max-width: 767px) {
+        font-size: 14px;
+    }
 `
 const FooterFlexBoxH6 = styled.h6 `
     font-family: "poppins";
@@ -543,6 +682,10 @@ const FooterFlexBoxH6 = styled.h6 `
     opacity: 70%;
     font-weight: 400;
     margin-bottom: 11px;
+
+    @media (max-width: 767px) {
+        font-size: 10px;
+    }
 `
 const FooterFlexBoxIcons = styled.div `
     display: flex;
@@ -552,6 +695,10 @@ const FooterFlexBoxIcons = styled.div `
     gap: 24px;
     margin-top: 27px;
     cursor: pointer;
+
+    @media (max-width: 991px) {
+        justify-content: center;
+    }
 `
 const FooterCo = styled.h5 `
     border-top: 1px solid #333;
@@ -562,4 +709,32 @@ const FooterCo = styled.h5 `
     opacity: 40%;
     text-align: center;
     padding-top: 27px;
+
+    @media (max-width: 767px) {
+        font-size: 14px;
+        padding-top: 20px;
+    }
+`
+const DivLangDropdown = styled.div`
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1000;
+    min-width: 120px;
+    margin-top: 5px;
+`
+const DivLangDropdownItem = styled.div`
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: "poppins";
+    font-size: 14px;
+    color: #000;
+    
+    &:hover {
+        background: #f5f5f5;
+    }
 `
