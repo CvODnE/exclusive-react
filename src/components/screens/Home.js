@@ -109,7 +109,7 @@ export default function Home() {
 
     return (
         <>
-            <DivTop className="top" style={styled.divTop}>
+            <DivTop className="top">
                 <DivText className="text">
                     <DivTextP>Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!</DivTextP>
                     <DivTextButton>ShopNow</DivTextButton>
@@ -159,7 +159,6 @@ export default function Home() {
                             <ProductGridBoxa key={index} className="boxa" onClick={() => handleClick(product)}>
                                 <ProductGridBoxaCart className="cart">
                                     <ProductGridBoxaCartImg src={require(`../../assets/images/${product.src}`)} alt="" className="img"/>
-                                    {}
                                     {product.new && <ProductGridBoxaCartNew>New</ProductGridBoxaCartNew>}
                                     {product.off && <ProductGridBoxaCartOff>{product.off}</ProductGridBoxaCartOff>}
                                     <ProductGridBoxaCartIcon className="icon">
@@ -594,6 +593,17 @@ const DivTop = styled.div `
     @media (max-width: 575px) {
         padding: 10px 3%;
     }
+
+    @media (max-width: 360px) {
+        width: 100%;
+        padding: 10px 2px;
+        height: auto;
+    }
+    @media (max-width: 320px) {
+        width: 100%;
+        padding: 8px 1px;
+        height: auto;
+    }
 `
 const DivText = styled.div `
     display: flex;
@@ -665,6 +675,15 @@ const Header = styled.header `
         padding-top: 10px;
         padding-bottom: 10px;
     }
+
+    @media (max-width: 360px) {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    @media (max-width: 320px) {
+        padding-left: 2px;
+        padding-right: 2px;
+    }
 `
 const HeaderImg = styled.img `
     width: 90%;
@@ -684,6 +703,15 @@ const HeaderNavUl = styled.ul `
     @media (max-width: 575px) {
         flex-direction: column;
         gap: 10px;
+    }
+
+    @media (max-width: 360px) {
+        flex-direction: column;
+        gap: 8px;
+    }
+    @media (max-width: 320px) {
+        flex-direction: column;
+        gap: 5px;
     }
 `
 const HeaderNavUlLiA = styled.a `
@@ -707,6 +735,15 @@ const HeaderUl = styled.ul `
     @media (max-width: 575px) {
         flex-direction: column;
         gap: 10px;
+    }
+
+    @media (max-width: 360px) {
+        flex-direction: column;
+        gap: 8px;
+    }
+    @media (max-width: 320px) {
+        flex-direction: column;
+        gap: 5px;
     }
 `
 const HeaderUlForm = styled.div `
@@ -757,6 +794,15 @@ const Wrapper = styled.section `
     @media (max-width: 575px) {
         width: 99%;
     }
+
+    @media (max-width: 360px) {
+        width: 100%;
+        padding: 0 2px;
+    }
+    @media (max-width: 320px) {
+        width: 100%;
+        padding: 0 1px;
+    }
 `
 const Search = styled.section `
     margin-top: 50px;
@@ -764,8 +810,9 @@ const Search = styled.section `
 `
 const SearchGrid = styled.div `
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: repeat(4, 1fr);
     gap: 30px;
+    margin-top: 30px;
 
     @media (max-width: 1199px) {
         grid-template-columns: repeat(3, 1fr);
@@ -773,12 +820,19 @@ const SearchGrid = styled.div `
 
     @media (max-width: 991px) {
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
     }
 
     @media (max-width: 575px) {
         grid-template-columns: 1fr;
-        gap: 15px;
+    }
+
+    @media (max-width: 360px) {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    @media (max-width: 320px) {
+        grid-template-columns: 1fr;
+        gap: 5px;
     }
 `
 const ProductGridBoxa = styled.div `
@@ -819,114 +873,86 @@ const ProductGridBoxaCartImg = styled.img `
         width: 60%;
     }
 `
-const ProductGridBoxaCartIcon = styled.span `
+const ProductGridBoxaCartIcon = styled.div`
     position: absolute;
-    left: 211px;
-    bottom: 185px;
+    top: 10px;
+    right: 10px;
+    background: white;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fff;
-    border-radius: 50%;
-    padding: 10px;
-
-    @media (max-width: 575px) {
-        left: auto;
-        right: 10px;
-        bottom: 10px;
-        padding: 5px;
-    }
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 `
-const ProductGridBoxaCartIcon1 = styled.span `
+const ProductGridBoxaCartIcon1 = styled.div`
     position: absolute;
-    left: 211px;
-    bottom: 130px;
+    top: 10px;
+    right: 50px;
+    background: white;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fff;
-    border-radius: 50%;
-    padding: 10px;
-
-    @media (max-width: 575px) {
-        left: auto;
-        right: 10px;
-        bottom: 50px;
-        padding: 5px;
-    }
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 `
-const ProductGridBoxaCartCart = styled.button `
-    width: 100%;
+const ProductGridBoxaCartCart = styled.div`
     position: absolute;
-    top: 200px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background: #000;
-    color: #fff;
+    color: white;
+    padding: 10px;
     text-align: center;
-    border: none;
-    height: 41px;
-    z-index: 1;
-    font-size: 16px;
-    font-family: "poppins";
-    opacity: 0%;
-    &:hover {
-        transition: all .5s;
-        opacity: 100%;
-    }
-
-    @media (max-width: 575px) {
-        top: auto;
-        bottom: 0;
-        height: 35px;
-        font-size: 14px;
-        opacity: 100%; /* Always show button on small screens */
-    }
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 `
-const ProductGridBoxaH5 = styled.h5 `
+const ProductGridBoxaH5 = styled.h5`
+    margin: 16px 0;
     font-size: 16px;
-    font-family: "poppins";
-    margin-bottom: 9px;
-    margin-top: 16px;
-    color: #000;
+    font-weight: 500;
 `
-const ProductGridBoxaText = styled.div `
-    gap: 9px;
+const ProductGridBoxaText = styled.div`
     display: flex;
     align-items: center;
+    gap: 8px;
 `
-const ProductGridBoxaTextPrice = styled.h5 `
-    text-align: center;
-    margin: 0px;
-    color: #db4444;
+const ProductGridBoxaTextPrice = styled.span`
+    font-weight: 600;
+    font-size: 16px;
 `
-const ProductGridBoxaTextGrey = styled.h5 `
-    text-align: center;
-    margin: 0px;
-    font-size: 14px;
+const ProductGridBoxaTextGrey = styled.span`
     color: #999;
+    font-size: 14px;
 `
-const ProductGridBoxaCartNew = styled.button `
+const ProductGridBoxaCartNew = styled.div`
     position: absolute;
-    left: 13px;
-    top: 13px;
-    background: #0f6;
-    border: none;
-    border-radius: 5px;
-    padding: 4px 12px;
-    color: #fafafa;
-    font-family: "poppins";
+    top: 10px;
+    left: 10px;
+    background: #00FF66;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
 `
-const ProductGridBoxaCartOff = styled.button `
+const ProductGridBoxaCartOff = styled.div`
     position: absolute;
-    left: 13px;
-    top: 13px;
-    background: #db4444;
-    border: none;
-    border-radius: 5px;
-    padding: 4px 12px;
-    color: #fafafa;
-    font-family: "poppins";
+    top: 10px;
+    right: 10px;
+    background: #DB4444;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
 `
 const ProductGridBoxaDots = styled.div `
     display: flex;
@@ -969,40 +995,24 @@ const ProductGridBoxaTextsGrey = styled.h5 `
     font-size: 14px;
     color: #999;
 `
-const SpotlightBlack = styled.div `
+const SpotlightBlack = styled.div`
     background: #000;
-    height: 453px;
-    border-radius: 10px;
-    margin: 0 auto;
-    margin-top: 43px;
-
-    @media (max-width: 991px) {
-        height: auto;
-        padding: 20px;
-    }
+    padding: 50px 0;
+    color: white;
 `
-const SpotlightBlackWrap = styled.div `
-    width: 90%;
-    margin: 0 auto;
+const SpotlightBlackWrap = styled.div`
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    gap: 30px;
 
     @media (max-width: 991px) {
         flex-direction: column;
         text-align: center;
-        width: 100%;
     }
 `
 const SpotlightBlackWrapContentApple = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-
-    @media (max-width: 991px) {
-        margin-bottom: 15px;
-    }
+    flex: 1;
 `
 const SpotlightBlackWrapContentAppleH5 = styled.h5 `
     font-family: "poppins";
@@ -1025,41 +1035,35 @@ const SpotlightBlackWrapContentH1 = styled.h1 `
         font-size: 28px;
     }
 `
-const SpotlightBlackWrapContentButton = styled.div `
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 9px;
-    cursor: pointer;
+const SpotlightBlackWrapContentButton = styled.div`
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
 
     @media (max-width: 991px) {
         justify-content: center;
     }
 `
-const SpotlightBlackWrapContentButtonButton = styled.button `
-    background: none;
+const SpotlightBlackWrapContentButtonButton = styled.button`
+    background: white;
+    color: black;
     border: none;
-    color: #fafafa;
-    font-size: 16px;
-    font-family: "poppins";
-    border-bottom: #999 1.5px solid;
+    padding: 10px 20px;
+    border-radius: 4px;
     cursor: pointer;
-`
-const Categories = styled.section `
-    margin-top: 55px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
 
-    @media (max-width: 767px) {
-        margin-top: 30px;
+    &:hover {
+        background: #f5f5f5;
     }
 `
-const CategoriesText = styled.div `
-    display: flex;
-    align-items: center;
-    justify-content: left;
-
-    @media (max-width: 767px) {
-        justify-content: center;
-    }
+const Categories = styled.section`
+    padding: 50px 0;
+`
+const CategoriesText = styled.div`
+    text-align: center;
+    margin-bottom: 40px;
 `
 const CategoriesTextH5 = styled.h5 `
     font-family: "poppins";
@@ -1110,8 +1114,8 @@ const CategoriesFlex = styled.div `
 const CategoriesFlexBox = styled.div `
     border-radius: 5px;
     border: 1px solid #999;
-    width: 170px;
-    height: 145px;
+    width: 110px;
+    height: 90px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1119,13 +1123,13 @@ const CategoriesFlexBox = styled.div `
     cursor: pointer;
 
     @media (max-width: 575px) {
-        width: 140px;
-        height: 120px;
+        width: 80px;
+        height: 65px;
     }
 
     @media (max-width: 400px) {
-        width: 100px;
-        height: 100px;
+        width: 60px;
+        height: 55px;
     }
 `
 const CategoriesFlexBoxImg = styled.img `
@@ -1173,6 +1177,17 @@ const CategoriesGrid = styled.div `
         gap: 10px;
         width: 99%;
     }
+
+    @media (max-width: 360px) {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        width: 100%;
+    }
+    @media (max-width: 320px) {
+        grid-template-columns: 1fr;
+        gap: 5px;
+        width: 100%;
+    }
 `
 const CategoriesGridBoxa = styled.div `
     gap: 16px;
@@ -1199,6 +1214,21 @@ const CategoriesGridBoxaCartImg = styled.img `
 `
 const CategoriesGridBoxaCartIcon = styled.span `
     position: absolute;
+    top: 10px;
+    right: 10px;
+    background: white;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+`
+const CategoriesGridBoxaCartIcon1 = styled.span `
+    position: absolute;
     left: 211px;
     bottom: 185px;
     display: flex;
@@ -1208,37 +1238,19 @@ const CategoriesGridBoxaCartIcon = styled.span `
     border-radius: 50%;
     padding: 10px;
 `
-const CategoriesGridBoxaCartIcon1 = styled.span `
-    position: absolute;
-    left: 211px;
-    bottom: 130px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-    border-radius: 50%;
-    padding: 10px;
-`
 const CategoriesGridBoxaCartCart = styled.button `
-    width: 100%;
     position: absolute;
-    top: 200px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background: #000;
-    color: #fff;
+    color: white;
+    padding: 10px;
     text-align: center;
-    border: none;
-    height: 41px;
-    z-index: 1;
-    font-size: 16px;
-    font-family: "poppins";
-    opacity: 0%;
     cursor: pointer;
-    &:hover {
-        transition: all .5s;
-        opacity: 100%;
-    }
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border: none;
 `
 const CategoriesGridBoxaH5 = styled.h5 `
     font-size: 16px;
@@ -1247,45 +1259,39 @@ const CategoriesGridBoxaH5 = styled.h5 `
     margin-top: 16px;
 `
 const CategoriesGridBoxaText = styled.div `
-    gap: 9px;
     display: flex;
     align-items: center;
-    justify-content: left;
+    gap: 8px;
+    margin-top: 16px;
 `
 const CategoriesGridBoxaTextPrice = styled.h5 `
-    text-align: center;
-    margin: 0px;
-    font-family: "poppins";
     font-weight: 600;
     font-size: 16px;
-    color: #db4444;
+    margin: 0;
 `
-const CategoriesGridBoxaTextGrey = styled.h5 `
-    text-align: center;
-    margin: 0px;
-    font-size: 14px;
+const CategoriesGridBoxaTextGrey = styled.h5`
     color: #999;
-    font-family: "poppins";
-    font-weight: 600;
+    font-size: 14px;
+    margin: 0;
 `
-const CategoriesGridBoxaCartNew = styled.button `
+const CategoriesGridBoxaCartNew = styled.button`
     position: absolute;
-    left: 13px;
-    top: 13px;
-    background: #0f6;
+    top: 10px;
+    left: 10px;
+    background: #00FF66;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
     border: none;
-    border-radius: 5px;
-    padding: 4px 12px;
-    color: #fafafa;
-    font-family: "poppins";
 `
-const CategoriesGridBoxaDots = styled.div `
+const CategoriesGridBoxaDots = styled.div`
     display: flex;
     align-items: center;
-    justify-content: start;
-    margin-top: 9px;
+    gap: 8px;
+    margin-top: 8px;
 `
-const CategoriesGridBoxaDotsColor = styled.div `
+const CategoriesGridBoxaDotsColor = styled.div`
     width: 14px;
     height: 14px;
     background: #fb1314;
@@ -1293,92 +1299,28 @@ const CategoriesGridBoxaDotsColor = styled.div `
     border-radius: 50%;
     outline: #000 2px solid;
 `
-const CategoriesGridBoxaDotsDot = styled.div `
+const CategoriesGridBoxaDotsDot = styled.div`
     width: 20px;
     height: 20px;
     background: #db4444;
     border-radius: 50%;
-    margin-left: 9px;
 `
-const CategoriesView = styled.button `
-    display: block;
-    margin: 0 auto;
-    padding: 16px 48px;
-    background: #db4444;
-    color: #fafafa;
-    font-family: "poppins";
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-`
-const Feature = styled.section `
-    margin-bottom: 27px;
-    margin-top: 75px;
-
-    @media (max-width: 767px) {
-        margin-top: 40px;
-        margin-bottom: 20px;
-    }
-`
-const FeatureFlex = styled.div `
+const CategoriesGridBoxaTexts = styled.div`
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 87px;
-    width: 87%;
-    margin: 0 auto;
-
-    @media (max-width: 991px) {
-        flex-direction: column;
-        gap: 40px;
-        width: 95%;
-    }
-
-    @media (max-width: 767px) {
-        gap: 30px;
-        width: 98%;
-    }
+    gap: 8px;
+    margin-top: 8px;
 `
-const FeatureFlexBoxImg = styled.img `
-    background: #000;
-    padding: 9px;
-    border-radius: 50%;
-    border: 15px #ccc solid;
-    display: block;
-    width: 40px;
-    margin: 0 auto;
-    margin-bottom: 24px;
-
-    @media (max-width: 767px) {
-        width: 30px;
-        padding: 5px;
-        border: 10px #ccc solid;
-        margin-bottom: 15px;
-    }
-`
-const FeatureFlexBoxH3 = styled.h3 `
-    text-align: center;
-    font-family: "poppins";
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 9px;
-
-    @media (max-width: 767px) {
-        font-size: 18px;
-        margin-bottom: 5px;
-    }
-`
-const FeatureFlexBoxH5 = styled.h5 `
+const CategoriesGridBoxaTextStrike = styled.h5`
+    text-decoration: line-through;
+    color: #999;
     font-size: 14px;
-    font-weight: 400;
-    font-family: "poppins";
-    text-align: center;
-    margin: 0px;
-
-    @media (max-width: 767px) {
-        font-size: 12px;
-    }
+    margin: 0;
+`
+const CategoriesGridBoxaTextsGrey = styled.h5`
+    color: #999;
+    font-size: 14px;
+    margin: 0;
 `
 const CategoriesProduct = styled.div `
     display: grid;
@@ -1439,6 +1381,78 @@ const CategoriesProductBoxImg = styled.img `
         width: 150px;
     }
 `
+const CategoriesView = styled.button`
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 20px;
+    display: block;
+    margin: 20px auto 0;
+`
+const Feature = styled.section `
+    margin-bottom: 27px;
+    margin-top: 75px;
+
+    @media (max-width: 767px) {
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+`
+const FeatureFlex = styled.div `
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+
+    @media (max-width: 991px) {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+`
+const FeatureFlexBoxImg = styled.img `
+    background: #000;
+    padding: 9px;
+    border-radius: 50%;
+    border: 15px #ccc solid;
+    display: block;
+    width: 40px;
+    margin: 0 auto;
+    margin-bottom: 24px;
+
+    @media (max-width: 767px) {
+        width: 30px;
+        padding: 5px;
+        border: 10px #ccc solid;
+        margin-bottom: 15px;
+    }
+`
+const FeatureFlexBoxH3 = styled.h3 `
+    text-align: center;
+    font-family: "poppins";
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 9px;
+
+    @media (max-width: 767px) {
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+`
+const FeatureFlexBoxH5 = styled.h5 `
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "poppins";
+    text-align: center;
+    margin: 0px;
+
+    @media (max-width: 767px) {
+        font-size: 12px;
+    }
+`
 const Footer = styled.footer `
     width: 100%;
     margin-top: 27px;
@@ -1453,6 +1467,15 @@ const Footer = styled.footer `
 
     @media (max-width: 767px) {
         padding-top: 30px;
+    }
+
+    @media (max-width: 360px) {
+        padding-top: 15px;
+        height: auto;
+    }
+    @media (max-width: 320px) {
+        padding-top: 10px;
+        height: auto;
     }
 `
 const FooterFlex = styled.div `
@@ -1489,7 +1512,32 @@ const FooterFlexBoxH4 = styled.h4 `
         font-size: 18px;
     }
 `
-const FooterFlexBoxH5 = styled.h3 `
+const DivLangDropdown = styled.div`
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1000;
+    min-width: 120px;
+    margin-top: 5px;
+`
+
+const DivLangDropdownItem = styled.div`
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: "poppins";
+    font-size: 14px;
+    color: #000;
+    
+    &:hover {
+        background: #f5f5f5;
+    }
+`
+
+const FooterFlexBoxH5 = styled.h3`
     font-family: "poppins";
     font-weight: 400;
     font-size: 16px;
@@ -1499,7 +1547,8 @@ const FooterFlexBoxH5 = styled.h3 `
         font-size: 14px;
     }
 `
-const FooterFlexBoxForm = styled.div `
+
+const FooterFlexBoxForm = styled.div`
     border-radius: 5px;
     border: 1.5px solid #fafafa;
     padding: 12px 16px;
@@ -1516,7 +1565,8 @@ const FooterFlexBoxForm = styled.div `
         width: 100%;
     }
 `
-const FooterFlexBoxFormInput = styled.input `
+
+const FooterFlexBoxFormInput = styled.input`
     background: none;
     border: none;
     outline: none;
@@ -1525,7 +1575,8 @@ const FooterFlexBoxFormInput = styled.input `
     font-family: "poppins";
     color: #fafafa;
 `
-const FooterFlexBoxUl = styled.ul `
+
+const FooterFlexBoxUl = styled.ul`
     list-style: none;
     padding: 0px;
 
@@ -1533,14 +1584,16 @@ const FooterFlexBoxUl = styled.ul `
         padding: 0;
     }
 `
-const FooterFlexBoxUlLi = styled.li `
+
+const FooterFlexBoxUlLi = styled.li`
     margin-bottom: 16px;
 
     @media (max-width: 991px) {
         margin-bottom: 10px;
     }
 `
-const FooterFlexBoxUlLiA = styled.a `
+
+const FooterFlexBoxUlLiA = styled.a`
     text-decoration: none;
     color: #fafafa;
     font-family: "poppins";
@@ -1551,7 +1604,8 @@ const FooterFlexBoxUlLiA = styled.a `
         font-size: 14px;
     }
 `
-const FooterFlexBoxH6 = styled.h6 `
+
+const FooterFlexBoxH6 = styled.h6`
     font-family: "poppins";
     font-size: 12px;
     color: #fafafa;
@@ -1563,7 +1617,8 @@ const FooterFlexBoxH6 = styled.h6 `
         font-size: 10px;
     }
 `
-const FooterFlexBoxIcons = styled.div `
+
+const FooterFlexBoxIcons = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1576,7 +1631,8 @@ const FooterFlexBoxIcons = styled.div `
         justify-content: center;
     }
 `
-const FooterCo = styled.h5 `
+
+const FooterCo = styled.h5`
     border-top: 1px solid #333;
     font-family: "poppins";
     font-weight: 400;
@@ -1589,28 +1645,5 @@ const FooterCo = styled.h5 `
     @media (max-width: 767px) {
         font-size: 14px;
         padding-top: 20px;
-    }
-`
-const DivLangDropdown = styled.div`
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    z-index: 1000;
-    min-width: 120px;
-    margin-top: 5px;
-`
-const DivLangDropdownItem = styled.div`
-    padding: 8px 16px;
-    cursor: pointer;
-    font-family: "poppins";
-    font-size: 14px;
-    color: #000;
-    
-    &:hover {
-        background: #f5f5f5;
     }
 `
